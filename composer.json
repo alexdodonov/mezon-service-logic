@@ -1,0 +1,33 @@
+{
+	"name": "mezon/service-logic",
+	"description": "Small service logic script",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Dodonov Alexey",
+			"email": "alexey@dodonov.pro",
+			"homepage": "http://gdzone.ru",
+			"role": "Founder"
+		}
+	],
+	"require": {
+		"php": ">=7.2.0",
+		"phpunit/phpunit": "^8.5",
+		"mezon/service-model": "^1.0",
+		"mezon/request-params": "^1.0",
+		"mezon/security-provider": "^1.0"
+	},
+	"support": {
+		"email": "alexey@dodonov.pro",
+		"issues": "https://github.com/alexdodonov/mezon-service-logic/issues",
+		"source": "https://github.com/alexdodonov/mezon-service-logic"
+	},
+	"minimum-stability": "dev",
+	"homepage": "https://github.com/alexdodonov/mezon-service-logic",
+	"prefer-stable": true,
+	"autoload": {
+		"psr-4": {
+			"Mezon\\Service\\": ""
+		}
+	}
+}
