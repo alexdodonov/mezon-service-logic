@@ -19,7 +19,7 @@ use Mezon\Transport\RequestParamsInterface;
  *
  * @author Dodonov A.A.
  */
-class ServiceBaseLogic implements \Mezon\Service\ServiceBaseLogicInterface
+class ServiceBaseLogic implements ServiceBaseLogicInterface
 {
 
     /**

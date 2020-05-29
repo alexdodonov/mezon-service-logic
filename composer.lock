@@ -341,16 +341,16 @@
         },
         {
             "name": "mezon/service-model",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/alexdodonov/mezon-service-model.git",
-                "reference": "503047e2939b25bec6737613063bf2f3e413f2e9"
+                "reference": "faaef7f5a514c83a6d0865def2dff6179a4b4040"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/alexdodonov/mezon-service-model/zipball/503047e2939b25bec6737613063bf2f3e413f2e9",
-                "reference": "503047e2939b25bec6737613063bf2f3e413f2e9",
+                "url": "https://api.github.com/repos/alexdodonov/mezon-service-model/zipball/faaef7f5a514c83a6d0865def2dff6179a4b4040",
+                "reference": "faaef7f5a514c83a6d0865def2dff6179a4b4040",
                 "shasum": ""
             },
             "require": {
@@ -380,7 +380,7 @@
             ],
             "description": "Small service model script",
             "homepage": "https://github.com/alexdodonov/mezon-service-model",
-            "time": "2020-05-28T08:37:42+00:00"
+            "time": "2020-05-29T09:00:53+00:00"
         },
         {
             "name": "myclabs/deep-copy",
