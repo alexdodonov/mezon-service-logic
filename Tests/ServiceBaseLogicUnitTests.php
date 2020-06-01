@@ -1,7 +1,8 @@
 <?php
 namespace Mezon\Service\Tests;
 
-use \Mezon\Security\MockProvider;
+use Mezon\Security\MockProvider;
+use Mezon\Transport\Tests\MockParamsFetcher;
 
 /**
  * Service logic utin tests
