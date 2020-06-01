@@ -20,7 +20,7 @@ namespace Mezon\Service\Tests;
  */
 class MockParamsFetcher2 extends \Mezon\Transport\Tests\MockParamsFetcher
 {
-    
+
     // TODO try to remove this class with the \Mezon\Transport\Tests\MockParamsFetcher
 
     /**
@@ -38,8 +38,7 @@ class MockParamsFetcher2 extends \Mezon\Transport\Tests\MockParamsFetcher
             return '';
         } elseif ($param == 'id' || $param == 'session_id') {
             return $this->value;
-        }
-        else {
+        } else {
             return null;
         }
     }
@@ -54,6 +53,8 @@ class MockParamsFetcher2 extends \Mezon\Transport\Tests\MockParamsFetcher
  */
 class ServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceBaseLogicUnitTests
 {
+
+    const TEST_USER_LOGIN = 'admin';
 
     /**
      * Testing class name.
@@ -167,7 +168,7 @@ class ServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceBaseLogicUnitTes
         $result = $logic->getSelfLogin();
 
         // assertions
-        $this->assertEquals('admin@localhost', $result['login'], 'Getting self login failed');
+        $this->assertEquals('admin@localhost', $result['login']);
     }
 
     /**
@@ -215,14 +216,16 @@ class ServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceBaseLogicUnitTes
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
-        $securityProviderMock->method('validatePermit')->with($this->equalTo('value'), $this->equalTo('admin'));
+        $securityProviderMock->method('validatePermit')->with(
+            $this->equalTo('value'),
+            $this->equalTo(ServiceLogicUnitTests::TEST_USER_LOGIN));
 
         $serviceLogicClassName = $this->className;
 
         $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
 
         // test body and assertions
-        $logic->validatePermit('admin');
+        $logic->validatePermit(ServiceLogicUnitTests::TEST_USER_LOGIN);
         $this->addToAssertionCount(1);
     }
 
@@ -233,14 +236,16 @@ class ServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceBaseLogicUnitTes
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
-        $securityProviderMock->method('hasPermit')->with($this->equalTo('value'), $this->equalTo('admin'));
+        $securityProviderMock->method('hasPermit')->with(
+            $this->equalTo('value'),
+            $this->equalTo(ServiceLogicUnitTests::TEST_USER_LOGIN));
 
         $serviceLogicClassName = $this->className;
 
         $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
 
         // test body and assertions
-        $logic->hasPermit('admin');
+        $logic->hasPermit(ServiceLogicUnitTests::TEST_USER_LOGIN);
         $this->addToAssertionCount(1);
     }
 }
