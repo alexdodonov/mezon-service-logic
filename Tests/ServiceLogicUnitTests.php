@@ -88,14 +88,15 @@ class ServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceBaseLogicUnitTes
      */
     public function testConnect()
     {
+        // setup
         $securityProviderMock = $this->getSecurityProviderMock();
-
         $serviceLogicClassName = $this->className;
-
         $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
 
+        // test body
         $result = $logic->connect();
 
+        // assertions
         $this->assertEquals('valuevalue', $result['session_id'], 'Connection failed');
     }
 
@@ -104,13 +105,17 @@ class ServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceBaseLogicUnitTes
      */
     public function testConnectWithEmptyParams()
     {
+        // setup
         $securityProviderMock = $this->getSecurityProviderMock();
-
         $serviceLogicClassName = $this->className;
-
         $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(false), $securityProviderMock);
+        unset($_POST['login']);
+        unset($_POST['password']);
 
+        // assertions
         $this->expectException(\Exception::class);
+
+        // test body
         $logic->connect();
     }
 
