@@ -1,6 +1,8 @@
 <?php
 namespace Mezon\Service\Tests;
 
+use Mezon\Transport\Tests\MockParamsFetcher;
+
 /**
  * Class ServiceLogicUnitTests
  *
@@ -10,39 +12,6 @@ namespace Mezon\Service\Tests;
  * @version v.1.0 (2019/08/17)
  * @copyright Copyright (c) 2019, aeon.org
  */
-
-/**
- * Mock parameter fetcher
- *
- * @author Dodonov A.A.
- * @group baseTests
- * @codeCoverageIgnore
- */
-class MockParamsFetcher2 extends \Mezon\Transport\Tests\MockParamsFetcher
-{
-
-    // TODO try to remove this class with the \Mezon\Transport\Tests\MockParamsFetcher
-
-    /**
-     * Method returns request parameter
-     *
-     * @param string $param
-     *            parameter name
-     * @param mixed $default
-     *            default value
-     * @return mixed Parameter value
-     */
-    public function getParam($param, $default = false)
-    {
-        if ($param == 'login') {
-            return '';
-        } elseif ($param == 'id' || $param == 'session_id') {
-            return $this->value;
-        } else {
-            return null;
-        }
-    }
-}
 
 /**
  * Base class for service logic unit tests
@@ -205,7 +174,7 @@ class ServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceBaseLogicUnitTes
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new MockParamsFetcher2(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
 
         // test body
         $result = $logic->loginAs();
