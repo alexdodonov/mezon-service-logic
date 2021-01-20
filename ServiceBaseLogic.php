@@ -40,6 +40,7 @@ class ServiceBaseLogic implements ServiceBaseLogicInterface
      * Model
      *
      * @var ServiceModel
+     * // TODO move model to upper class - ServiceLogic or even higher
      */
     private $model = false;
 
