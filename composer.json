@@ -29,11 +29,10 @@
 	"prefer-stable": true,
 	"autoload": {
 		"psr-4": {
-			"Mezon\\Service\\": ""
+			"Mezon\\": "./Mezon/"
 		}
 	},
 	"scripts": {
-		"post-update-cmd": "php ./vendor/phpunit/phpunit/phpunit",
 		"test": "php ./vendor/phpunit/phpunit/phpunit"
 	}
 }

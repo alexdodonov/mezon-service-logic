@@ -20,7 +20,7 @@ use Mezon\Transport\Tests\MockParamsFetcher;
  * @group baseTests
  * @codeCoverageIgnore
  */
-class ServiceLogicUnitTests extends \Mezon\Service\Tests\ServiceBaseLogicUnitTests
+class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 {
 
     const TEST_USER_LOGIN = 'admin';

@@ -16,8 +16,11 @@ namespace Mezon\Service;
  *
  * @author Dodonov A.A.
  */
-class ServiceLogic extends ServiceBaseLogic
+class ServiceLogic extends ServiceLogicWithModel
 {
+
+    // TODO create trait with these methods, so we can use them
+    // in models derived from ServiceBaseLogic
 
     /**
      * Method creates connection

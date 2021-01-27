@@ -37,37 +37,20 @@ class ServiceBaseLogic implements ServiceBaseLogicInterface
     private $paramsFetcher = false;
 
     /**
-     * Model
-     *
-     * @var ServiceModel
-     * // TODO move model to upper class - ServiceLogic or even higher
-     */
-    private $model = false;
-
-    /**
      * Constructor
      *
      * @param RequestParamsInterface $paramsFetcher
      *            Params fetcher
      * @param ProviderInterface $securityProvider
      *            Security provider
-     * @param mixed $model
-     *            Service model
      */
     public function __construct(
         RequestParamsInterface $paramsFetcher,
-        ProviderInterface $securityProvider,
-        $model = null)
+        ProviderInterface $securityProvider)
     {
         $this->paramsFetcher = $paramsFetcher;
 
         $this->securityProvider = $securityProvider;
-
-        if (is_string($model)) {
-            $this->model = new $model();
-        } else {
-            $this->model = $model;
-        }
     }
 
     /**
@@ -82,16 +65,6 @@ class ServiceBaseLogic implements ServiceBaseLogicInterface
     protected function getParam($param, $default = false)
     {
         return $this->getParamsFetcher()->getParam($param, $default);
-    }
-
-    /**
-     * Method returns model object
-     *
-     * @return ?ServiceModel Model
-     */
-    public function getModel(): ?ServiceModel
-    {
-        return $this->model;
     }
 
     /**

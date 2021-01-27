@@ -3,6 +3,9 @@ namespace Mezon\Service\Tests;
 
 use Mezon\Security\MockProvider;
 use Mezon\Transport\Tests\MockParamsFetcher;
+use Mezon\Service\ServiceModel;
+use Mezon\Service\ServiceBaseLogic;
+use PHPUnit\Framework\TestCase;
 
 /**
  * Service logic utin tests
@@ -15,20 +18,11 @@ use Mezon\Transport\Tests\MockParamsFetcher;
  */
 
 /**
- * Mock model
+ * Base class for service logic unit tests
  *
  * @author Dodonov A.A.
  */
-class MockModel extends \Mezon\Service\ServiceModel
-{
-}
-
-/**
- * Base class for service logic unit tests.
- *
- * @author Dodonov A.A.
- */
-class ServiceBaseLogicUnitTests extends \PHPUnit\Framework\TestCase
+class ServiceBaseLogicUnitTests extends TestCase
 {
 
     /**
@@ -36,21 +30,18 @@ class ServiceBaseLogicUnitTests extends \PHPUnit\Framework\TestCase
      *
      * @var string
      */
-    protected $className = \Mezon\Service\ServiceBaseLogic::class;
+    protected $className = ServiceBaseLogic::class;
 
     /**
      * Method tests creation of the logis's parts
      *
      * @param object $logic
      *            ServiceLogic object
-     * @param string $msg
-     *            Error message
      */
-    protected function checkLogicParts(object $logic, string $msg): void
+    protected function checkLogicParts(object $logic): void
     {
-        $this->assertInstanceOf(MockParamsFetcher::class, $logic->getParamsFetcher(), $msg);
-        $this->assertInstanceOf(MockProvider::class, $logic->getSecurityProvider(), $msg);
-        $this->assertInstanceOf(MockModel::class, $logic->getModel(), $msg);
+        $this->assertInstanceOf(MockParamsFetcher::class, $logic->getParamsFetcher());
+        $this->assertInstanceOf(MockProvider::class, $logic->getSecurityProvider());
     }
 
     /**
@@ -62,11 +53,7 @@ class ServiceBaseLogicUnitTests extends \PHPUnit\Framework\TestCase
 
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider());
 
-        $msg = 'Construction failed for default model';
-
-        $this->assertInstanceOf(MockParamsFetcher::class, $logic->getParamsFetcher(), $msg);
-        $this->assertInstanceOf(MockProvider::class, $logic->getSecurityProvider(), $msg);
-        $this->assertEquals(null, $logic->getModel(), $msg);
+        $this->checkLogicParts($logic);
     }
 
     /**
@@ -79,11 +66,9 @@ class ServiceBaseLogicUnitTests extends \PHPUnit\Framework\TestCase
         $logic = new $serviceLogicClassName(
             new MockParamsFetcher(),
             new MockProvider(),
-            new MockModel());
+            new ServiceModel());
 
-        $msg = 'Construction failed for defined model object';
-
-        $this->checkLogicParts($logic, $msg);
+        $this->checkLogicParts($logic);
     }
 
     /**
@@ -96,10 +81,8 @@ class ServiceBaseLogicUnitTests extends \PHPUnit\Framework\TestCase
         $logic = new $serviceLogicClassName(
             new MockParamsFetcher(),
             new MockProvider(),
-            MockModel::class);
+            ServiceModel::class);
 
-        $msg = 'Construction failed for defined model name';
-
-        $this->checkLogicParts($logic, $msg);
+        $this->checkLogicParts($logic);
     }
 }
