@@ -94,6 +94,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     public function testSetToken()
     {
         // setup
+        $_POST['token'] = 'value';
         $securityProviderMock = $this->getSecurityProviderMock();
 
         $serviceLogicClassName = $this->className;
