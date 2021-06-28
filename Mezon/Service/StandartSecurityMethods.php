@@ -58,6 +58,7 @@ trait StandartSecurityMethods
             ->getLoginFieldName(), false);
         $password = $this->getParam('password', false);
 
+        // TODO throw exception with the call stack, for debug purposes
         if ($login === false || $password === false) {
             throw (new \Exception('Fields login and/or password were not set', - 1));
         }
