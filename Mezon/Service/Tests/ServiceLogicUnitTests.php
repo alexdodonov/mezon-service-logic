@@ -60,7 +60,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
         $serviceLogicClassName = $this->className;
-        $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
 
         // test body
         $result = $logic->connect();
@@ -77,9 +77,12 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
         $serviceLogicClassName = $this->className;
-        $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(false), $securityProviderMock);
-        unset($_POST['login']);
-        unset($_POST['password']);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(false), $securityProviderMock);
+
+        if (isset($_POST)) {
+            unset($_POST['login']);
+            unset($_POST['password']);
+        }
 
         // assertions
         $this->expectException(\Exception::class);
@@ -99,7 +102,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
 
         // test body
         $result = $logic->setToken();
@@ -118,7 +121,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
 
         // test body
         $result = $logic->getSelfId();
@@ -137,7 +140,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
 
         // test body
         $result = $logic->getSelfLogin();
@@ -156,7 +159,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
 
         // test body
         $result = $logic->loginAs();
@@ -197,7 +200,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
 
         // test body and assertions
         $logic->validatePermit(ServiceLogicUnitTests::TEST_USER_LOGIN);
@@ -217,7 +220,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new \Mezon\Transport\Tests\MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
 
         // test body and assertions
         $logic->hasPermit(ServiceLogicUnitTests::TEST_USER_LOGIN);
