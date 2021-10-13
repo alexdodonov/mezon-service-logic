@@ -21,6 +21,7 @@ use PHPUnit\Framework\TestCase;
  * Base class for service logic unit tests
  *
  * @author Dodonov A.A.
+ * @psalm-suppress  PropertyNotSetInConstructor
  */
 class ServiceBaseLogicUnitTests extends TestCase
 {

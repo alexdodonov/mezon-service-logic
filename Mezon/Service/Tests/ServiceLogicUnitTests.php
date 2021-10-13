@@ -2,6 +2,8 @@
 namespace Mezon\Service\Tests;
 
 use Mezon\Transport\Tests\MockParamsFetcher;
+use Mezon\Service\ServiceLogic;
+use Mezon\Security\MockProvider;
 
 /**
  * Class ServiceLogicUnitTests
@@ -19,6 +21,7 @@ use Mezon\Transport\Tests\MockParamsFetcher;
  * @author Dodonov A.A.
  * @group baseTests
  * @codeCoverageIgnore
+ * @psalm-suppress  PropertyNotSetInConstructor
  */
 class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 {
@@ -30,16 +33,18 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
      *
      * @var string
      */
-    protected $className = \Mezon\Service\ServiceLogic::class;
+    protected $className = ServiceLogic::class;
 
     /**
      * Method returns mock of the security provider
+     *
+     * @return object mock object
      */
-    protected function getSecurityProviderMock()
+    protected function getSecurityProviderMock(): object
     {
-        $mock = $this->getMockBuilder(\Mezon\Security\MockProvider::class)
+        $mock = $this->getMockBuilder(MockProvider::class)
             ->disableOriginalConstructor()
-            ->setMethods([
+            ->onlyMethods([
             'connect',
             'getParam',
             'validatePermit',
@@ -55,7 +60,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     /**
      * Testing connection routine
      */
-    public function testConnect()
+    public function testConnect(): void
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
@@ -72,14 +77,14 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     /**
      * Testing connection routine
      */
-    public function testConnectWithEmptyParams()
+    public function testConnectWithEmptyParams(): void
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
         $serviceLogicClassName = $this->className;
         $logic = new $serviceLogicClassName(new MockParamsFetcher(false), $securityProviderMock);
 
-        if (isset($_POST)) {
+        if (! empty($_POST)) {
             unset($_POST['login']);
             unset($_POST['password']);
         }
@@ -94,7 +99,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     /**
      * Testing setToken method
      */
-    public function testSetToken()
+    public function testSetToken(): void
     {
         // setup
         $_POST['token'] = 'value';
@@ -114,7 +119,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     /**
      * Testing getSelfId method
      */
-    public function testGetSelfId()
+    public function testGetSelfId(): void
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
@@ -133,7 +138,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     /**
      * Testing getSelfLogin method
      */
-    public function testGetSelfLogin()
+    public function testGetSelfLogin(): void
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
@@ -152,7 +157,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     /**
      * Testing loginAs method
      */
-    public function testLoginAs()
+    public function testLoginAs(): void
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
@@ -171,7 +176,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     /**
      * Testing loginAs method with id
      */
-    public function testLoginAsById()
+    public function testLoginAsById(): void
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
@@ -190,7 +195,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     /**
      * Testing validatePermit method
      */
-    public function testValidatePermit()
+    public function testValidatePermit(): void
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
@@ -204,13 +209,13 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         // test body and assertions
         $logic->validatePermit(ServiceLogicUnitTests::TEST_USER_LOGIN);
-        $this->addToAssertionCount(1);
+        $this->assertTrue(true);
     }
 
     /**
      * Testing hasPermit method
      */
-    public function testHasPermit()
+    public function testHasPermit(): void
     {
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
@@ -224,6 +229,6 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         // test body and assertions
         $logic->hasPermit(ServiceLogicUnitTests::TEST_USER_LOGIN);
-        $this->addToAssertionCount(1);
+        $this->assertTrue(true);
     }
 }

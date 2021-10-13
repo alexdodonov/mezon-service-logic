@@ -86,7 +86,7 @@ trait StandartSecurityMethods
     /**
      * Method returns session user's id
      *
-     * @return int Session user's id
+     * @return array session user's id
      */
     public function getSelfId(): array
     {
@@ -98,7 +98,7 @@ trait StandartSecurityMethods
     /**
      * Method returns session user's login
      *
-     * @return string Session user's login
+     * @return array session user's login
      */
     public function getSelfLogin(): array
     {
@@ -110,7 +110,7 @@ trait StandartSecurityMethods
     /**
      * Method returns session id
      *
-     * @return string Session id
+     * @return string session id
      */
     protected function getSessionId(): string
     {
@@ -121,7 +121,7 @@ trait StandartSecurityMethods
     /**
      * Method allows to login under another user
      *
-     * @return array Session id
+     * @return array session id
      */
     public function loginAs(): array
     {
@@ -147,7 +147,7 @@ trait StandartSecurityMethods
     /**
      * Method returns self id
      *
-     * @return int Session user's id
+     * @return int session user's id
      */
     public function getSelfIdValue(): int
     {
@@ -157,7 +157,7 @@ trait StandartSecurityMethods
     /**
      * Method returns self login
      *
-     * @return string Session user's login
+     * @return string session user's login
      */
     public function getSelfLoginValue(): string
     {
@@ -168,7 +168,7 @@ trait StandartSecurityMethods
      * Checking does user has permit
      *
      * @param string $permit
-     *            Permit to check
+     *            permit to check
      * @return bool true or false if the session user has permit or not
      */
     public function hasPermit(string $permit): bool
@@ -180,9 +180,9 @@ trait StandartSecurityMethods
      * The same as hasPermit but throwing exception for session user no permit
      *
      * @param string $permit
-     *            Permit name
+     *            permit name
      */
-    public function validatePermit(string $permit)
+    public function validatePermit(string $permit): void
     {
         $this->getSecurityProvider()->validatePermit($this->getSessionId(), $permit);
     }
