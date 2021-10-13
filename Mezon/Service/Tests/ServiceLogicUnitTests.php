@@ -46,7 +46,6 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
             ->disableOriginalConstructor()
             ->onlyMethods([
             'connect',
-            'getParam',
             'validatePermit',
             'hasPermit'
         ])
