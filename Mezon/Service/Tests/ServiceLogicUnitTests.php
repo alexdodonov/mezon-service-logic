@@ -4,6 +4,7 @@ namespace Mezon\Service\Tests;
 use Mezon\Transport\Tests\MockParamsFetcher;
 use Mezon\Service\ServiceLogic;
 use Mezon\Security\MockProvider;
+use Mezon\Service\ServiceModel;
 
 /**
  * Class ServiceLogicUnitTests
@@ -64,7 +65,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
         $serviceLogicClassName = $this->className;
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
         $result = $logic->connect();
@@ -81,7 +82,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
         $serviceLogicClassName = $this->className;
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(false), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(false), $securityProviderMock, new ServiceModel());
 
         if (! empty($_POST)) {
             unset($_POST['login']);
@@ -106,7 +107,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
         $result = $logic->setToken();
@@ -125,7 +126,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
         $result = $logic->getSelfId();
@@ -144,7 +145,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
         $result = $logic->getSelfLogin();
@@ -163,7 +164,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
         $result = $logic->loginAs();
@@ -182,7 +183,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
         $result = $logic->loginAs();
@@ -204,7 +205,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body and assertions
         $logic->validatePermit(ServiceLogicUnitTests::TEST_USER_LOGIN);
@@ -224,7 +225,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock);
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body and assertions
         $logic->hasPermit(ServiceLogicUnitTests::TEST_USER_LOGIN);

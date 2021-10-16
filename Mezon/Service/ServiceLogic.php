@@ -1,6 +1,9 @@
 <?php
 namespace Mezon\Service;
 
+use Mezon\Security\AuthorizationProviderInterface;
+use Mezon\Transport\RequestParamsInterface;
+
 /**
  * Class ServiceLogic
  *
@@ -19,4 +22,41 @@ namespace Mezon\Service;
 class ServiceLogic extends ServiceLogicWithModel
 {
     use StandartSecurityMethods;
+
+    /**
+     * Authorization provider
+     *
+     * @var AuthorizationProviderInterface
+     */
+    private $authorizationProvider;
+
+    /**
+     * Constructor
+     *
+     * @param RequestParamsInterface $paramsFetcher
+     *            params fetcher
+     * @param AuthorizationProviderInterface $authorizationProvider
+     *            authorization provider
+     * @param ServiceModel $model
+     *            Service model
+     */
+    public function __construct(
+        RequestParamsInterface $paramsFetcher,
+        AuthorizationProviderInterface $authorizationProvider,
+        ServiceModel $model)
+    {
+        parent::__construct($paramsFetcher, $authorizationProvider, $model);
+
+        $this->authorizationProvider = $authorizationProvider;
+    }
+
+    /**
+     * Method returns AuthorizationProvider
+     *
+     * @return AuthorizationProviderInterface
+     */
+    public function getAuthorizationProvider(): AuthorizationProviderInterface
+    {
+        return $this->authorizationProvider;
+    }
 }

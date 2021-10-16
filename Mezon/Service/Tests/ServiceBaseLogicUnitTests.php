@@ -34,56 +34,15 @@ class ServiceBaseLogicUnitTests extends TestCase
     protected $className = ServiceBaseLogic::class;
 
     /**
-     * Method tests creation of the logis's parts
-     *
-     * @param object $logic
-     *            ServiceLogic object
+     * Testing constructor
      */
-    protected function checkLogicParts(object $logic): void
+    public function testConstructor(): void
     {
+        $serviceLogicClassName = $this->className;
+
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
+
         $this->assertInstanceOf(MockParamsFetcher::class, $logic->getParamsFetcher());
         $this->assertInstanceOf(MockProvider::class, $logic->getSecurityProvider());
-    }
-
-    /**
-     * Testing connect method
-     */
-    public function testConstruct1(): void
-    {
-        $serviceLogicClassName = $this->className;
-
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider());
-
-        $this->checkLogicParts($logic);
-    }
-
-    /**
-     * Testing connect method
-     */
-    public function testConstruct2(): void
-    {
-        $serviceLogicClassName = $this->className;
-
-        $logic = new $serviceLogicClassName(
-            new MockParamsFetcher(),
-            new MockProvider(),
-            new ServiceModel());
-
-        $this->checkLogicParts($logic);
-    }
-
-    /**
-     * Testing connect method
-     */
-    public function testConstruct3(): void
-    {
-        $serviceLogicClassName = $this->className;
-
-        $logic = new $serviceLogicClassName(
-            new MockParamsFetcher(),
-            new MockProvider(),
-            ServiceModel::class);
-
-        $this->checkLogicParts($logic);
     }
 }

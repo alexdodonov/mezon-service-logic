@@ -27,38 +27,34 @@ class ServiceLogicWithModel extends ServiceBaseLogic
      *
      * @var ServiceModel
      */
-    private $model = false;
+    private $model;
 
     /**
      * Constructor
      *
      * @param RequestParamsInterface $paramsFetcher
-     *            Params fetcher
+     *            params fetcher
      * @param ProviderInterface $securityProvider
-     *            Security provider
-     * @param mixed $model
-     *            Service model
+     *            security provider
+     * @param ServiceModel $model
+     *            service model
      */
     public function __construct(
         RequestParamsInterface $paramsFetcher,
         ProviderInterface $securityProvider,
-        $model = null)
+        ServiceModel $model)
     {
         parent::__construct($paramsFetcher, $securityProvider);
 
-        if (is_string($model)) {
-            $this->model = new $model();
-        } else {
-            $this->model = $model;
-        }
+        $this->model = $model;
     }
 
     /**
      * Method returns model object
      *
-     * @return ?ServiceModel Model
+     * @return ServiceModel Model
      */
-    public function getModel(): ?ServiceModel
+    public function getModel(): ServiceModel
     {
         return $this->model;
     }

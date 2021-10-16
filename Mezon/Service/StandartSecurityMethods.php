@@ -2,6 +2,7 @@
 namespace Mezon\Service;
 
 use Mezon\Transport\RequestParamsInterface;
+use Mezon\Security\AuthorizationProviderInterface;
 use Mezon\Security\ProviderInterface;
 
 /**
@@ -48,13 +49,20 @@ trait StandartSecurityMethods
     public abstract function getSecurityProvider(): ProviderInterface;
 
     /**
+     * Method returns security provider
+     *
+     * @return AuthorizationProviderInterface
+     */
+    public abstract function getAuthorizationProvider(): AuthorizationProviderInterface;
+
+    /**
      * Method creates connection
      *
      * @return array session id
      */
     public function connect(): array
     {
-        $login = $this->getParam($this->getSecurityProvider()
+        $login = $this->getParam($this->getAuthorizationProvider()
             ->getLoginFieldName(), false);
         $password = $this->getParam('password', false);
 
@@ -64,7 +72,7 @@ trait StandartSecurityMethods
         }
 
         return [
-            $this->getSecurityProvider()->getSessionIdFieldName() => $this->getSecurityProvider()->connect(
+            $this->getAuthorizationProvider()->getSessionIdFieldName() => $this->getAuthorizationProvider()->connect(
                 $login,
                 $password)
         ];
@@ -78,7 +86,7 @@ trait StandartSecurityMethods
     public function setToken(): array
     {
         return [
-            $this->getSecurityProvider()->getSessionIdFieldName() => $this->getSecurityProvider()->createSession(
+            $this->getAuthorizationProvider()->getSessionIdFieldName() => $this->getAuthorizationProvider()->createSession(
                 $this->getParam('token'))
         ];
     }
@@ -103,7 +111,7 @@ trait StandartSecurityMethods
     public function getSelfLogin(): array
     {
         return [
-            $this->getSecurityProvider()->getLoginFieldName() => $this->getSelfLoginValue()
+            $this->getAuthorizationProvider()->getLoginFieldName() => $this->getSelfLoginValue()
         ];
     }
 
@@ -114,7 +122,7 @@ trait StandartSecurityMethods
      */
     protected function getSessionId(): string
     {
-        return $this->getParam($this->getSecurityProvider()
+        return $this->getParam($this->getAuthorizationProvider()
             ->getSessionIdFieldName());
     }
 
@@ -125,7 +133,7 @@ trait StandartSecurityMethods
      */
     public function loginAs(): array
     {
-        $loginFieldName = $this->getSecurityProvider()->getLoginFieldName();
+        $loginFieldName = $this->getAuthorizationProvider()->getLoginFieldName();
 
         // we can login using either user's login or id
         if (($loginOrId = $this->getParam($loginFieldName, '')) !== '') {
@@ -137,7 +145,7 @@ trait StandartSecurityMethods
         }
 
         return [
-            $this->getSecurityProvider()->getSessionIdFieldName() => $this->getSecurityProvider()->loginAs(
+            $this->getAuthorizationProvider()->getSessionIdFieldName() => $this->getAuthorizationProvider()->loginAs(
                 $this->getSessionId(),
                 $loginOrId,
                 $loginFieldName)
@@ -151,7 +159,7 @@ trait StandartSecurityMethods
      */
     public function getSelfIdValue(): int
     {
-        return $this->getSecurityProvider()->getSelfId();
+        return $this->getAuthorizationProvider()->getSelfId();
     }
 
     /**
@@ -161,7 +169,7 @@ trait StandartSecurityMethods
      */
     public function getSelfLoginValue(): string
     {
-        return $this->getSecurityProvider()->getSelfLogin();
+        return $this->getAuthorizationProvider()->getSelfLogin();
     }
 
     /**
@@ -173,7 +181,7 @@ trait StandartSecurityMethods
      */
     public function hasPermit(string $permit): bool
     {
-        return $this->getSecurityProvider()->hasPermit($this->getSessionId(), $permit);
+        return $this->getAuthorizationProvider()->hasPermit($this->getSessionId(), $permit);
     }
 
     /**
@@ -184,6 +192,6 @@ trait StandartSecurityMethods
      */
     public function validatePermit(string $permit): void
     {
-        $this->getSecurityProvider()->validatePermit($this->getSessionId(), $permit);
+        $this->getAuthorizationProvider()->validatePermit($this->getSessionId(), $permit);
     }
 }

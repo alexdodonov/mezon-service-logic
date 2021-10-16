@@ -27,14 +27,14 @@ class ServiceBaseLogic implements ServiceBaseLogicInterface
      *
      * @var ProviderInterface
      */
-    private $securityProvider = null;
+    private $securityProvider;
 
     /**
      * Request params fetcher
      *
      * @var RequestParamsInterface
      */
-    private $paramsFetcher = false;
+    private $paramsFetcher;
 
     /**
      * Constructor
