@@ -65,6 +65,8 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
         $serviceLogicClassName = $this->className;
+        
+        /** @var ServiceLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
@@ -82,6 +84,8 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
         // setup
         $securityProviderMock = $this->getSecurityProviderMock();
         $serviceLogicClassName = $this->className;
+        
+        /** @var ServiceLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(false), $securityProviderMock, new ServiceModel());
 
         if (! empty($_POST)) {
@@ -107,6 +111,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
+        /** @var ServiceLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
@@ -126,6 +131,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
+        /** @var ServiceLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
@@ -145,6 +151,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
+        /** @var ServiceLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
@@ -157,20 +164,44 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     /**
      * Testing loginAs method
      */
-    public function testLoginAs(): void
+    public function testLoginAsWithLogin(): void
     {
         // setup
+        $_POST['login'] = 'localhost@index.ru';
         $securityProviderMock = $this->getSecurityProviderMock();
 
         $serviceLogicClassName = $this->className;
 
+        /** @var ServiceLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
         $result = $logic->loginAs();
 
         // assertions
-        $this->assertEquals('value', $result['session_id'], 'Getting self login failed');
+        $this->assertEquals('value', $result['session_id']);
+    }
+
+    /**
+     * Testing loginAs method
+     */
+    public function testLoginAsWithId(): void
+    {
+        // setup
+        $_POST['id'] = '1';
+        $_POST['session_id'] = 'session id';
+        $securityProviderMock = $this->getSecurityProviderMock();
+
+        $serviceLogicClassName = $this->className;
+
+        /** @var ServiceLogic $logic */
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(''), $securityProviderMock, new ServiceModel());
+
+        // test body
+        $result = $logic->loginAs();
+
+        // assertions
+        $this->assertEquals('session id', $result['session_id']);
     }
 
     /**
@@ -183,6 +214,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
+        /** @var ServiceLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body
@@ -205,6 +237,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
+        /** @var ServiceLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body and assertions
@@ -225,6 +258,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
 
         $serviceLogicClassName = $this->className;
 
+        /** @var ServiceLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
 
         // test body and assertions

@@ -38,5 +38,8 @@
 		"psalm": "php ./vendor/vimeo/psalm/psalm --show-info=true --no-cache",
 		"psalm-self": "php ./vendor/vimeo/psalm/psalm --config=psalm-self.xml --show-info=true --no-cache",
 		"test-unit": "php ./vendor/phpunit/phpunit/phpunit --testsuite unit --order-by=random"
+	},
+	"config": {
+		"process-timeout": 0
 	}
 }

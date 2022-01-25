@@ -34,6 +34,18 @@ class ServiceBaseLogicUnitTests extends TestCase
     protected $className = ServiceBaseLogic::class;
 
     /**
+     *
+     * {@inheritdoc}
+     * @see TestCase::setUp()
+     */
+    protected function setUp(): void
+    {
+        unset($_POST['session_id']);
+        unset($_POST['login']);
+        unset($_POST['id']);
+    }
+
+    /**
      * Testing constructor
      */
     public function testConstructor(): void
