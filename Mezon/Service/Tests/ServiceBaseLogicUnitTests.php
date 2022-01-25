@@ -40,9 +40,11 @@ class ServiceBaseLogicUnitTests extends TestCase
      */
     protected function setUp(): void
     {
-        unset($_POST['session_id']);
-        unset($_POST['login']);
-        unset($_POST['id']);
+        if (isset($_POST)) {
+            unset($_POST['session_id']);
+            unset($_POST['login']);
+            unset($_POST['id']);
+        }
     }
 
     /**
