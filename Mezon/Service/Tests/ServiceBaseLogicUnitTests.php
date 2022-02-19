@@ -37,6 +37,7 @@ class ServiceBaseLogicUnitTests extends TestCase
      *
      * {@inheritdoc}
      * @see TestCase::setUp()
+     * @psalm-suppress RedundantCondition
      */
     protected function setUp(): void
     {
