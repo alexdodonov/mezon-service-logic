@@ -27,7 +27,7 @@ class ServiceLogicWithModel extends ServiceBaseLogic
      *
      * @var ServiceModel
      */
-    private $model;
+    protected $model;
 
     /**
      * Constructor
@@ -47,15 +47,5 @@ class ServiceLogicWithModel extends ServiceBaseLogic
         parent::__construct($paramsFetcher, $securityProvider);
 
         $this->model = $model;
-    }
-
-    /**
-     * Method returns model object
-     *
-     * @return ServiceModel Model
-     */
-    public function getModel(): ServiceModel
-    {
-        return $this->model;
     }
 }

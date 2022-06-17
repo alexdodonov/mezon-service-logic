@@ -37,43 +37,21 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     protected $className = ServiceLogic::class;
 
     /**
-     * Method returns mock of the security provider
-     *
-     * @return object mock object
-     */
-    protected function getSecurityProviderMock(): object
-    {
-        $mock = $this->getMockBuilder(MockProvider::class)
-            ->disableOriginalConstructor()
-            ->onlyMethods([
-            'connect',
-            'validatePermit',
-            'hasPermit'
-        ])
-            ->getMock();
-
-        $mock->method('connect')->will($this->returnValue('valuevalue'));
-
-        return $mock;
-    }
-
-    /**
      * Testing connection routine
      */
     public function testConnect(): void
     {
         // setup
-        $securityProviderMock = $this->getSecurityProviderMock();
         $serviceLogicClassName = $this->className;
-        
+
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body
         $result = $logic->connect();
 
         // assertions
-        $this->assertEquals('valuevalue', $result['session_id'], 'Connection failed');
+        $this->assertEquals(32, strlen($result['session_id']));
     }
 
     /**
@@ -82,11 +60,10 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     public function testConnectWithEmptyParams(): void
     {
         // setup
-        $securityProviderMock = $this->getSecurityProviderMock();
         $serviceLogicClassName = $this->className;
-        
+
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(false), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(false), new MockProvider(), new ServiceModel());
 
         if (! empty($_POST)) {
             unset($_POST['login']);
@@ -107,12 +84,11 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     {
         // setup
         $_POST['token'] = 'value';
-        $securityProviderMock = $this->getSecurityProviderMock();
 
         $serviceLogicClassName = $this->className;
 
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body
         $result = $logic->setToken();
@@ -127,12 +103,10 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     public function testGetSelfId(): void
     {
         // setup
-        $securityProviderMock = $this->getSecurityProviderMock();
-
         $serviceLogicClassName = $this->className;
 
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body
         $result = $logic->getSelfId();
@@ -147,12 +121,10 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     public function testGetSelfLogin(): void
     {
         // setup
-        $securityProviderMock = $this->getSecurityProviderMock();
-
         $serviceLogicClassName = $this->className;
 
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body
         $result = $logic->getSelfLogin();
@@ -168,12 +140,11 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     {
         // setup
         $_POST['login'] = 'localhost@index.ru';
-        $securityProviderMock = $this->getSecurityProviderMock();
 
         $serviceLogicClassName = $this->className;
 
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body
         $result = $logic->loginAs();
@@ -190,12 +161,11 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
         // setup
         $_POST['id'] = '1';
         $_POST['session_id'] = 'session id';
-        $securityProviderMock = $this->getSecurityProviderMock();
 
         $serviceLogicClassName = $this->className;
 
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(''), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(''), new MockProvider(), new ServiceModel());
 
         // test body
         $result = $logic->loginAs();
@@ -210,12 +180,10 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     public function testLoginAsById(): void
     {
         // setup
-        $securityProviderMock = $this->getSecurityProviderMock();
-
         $serviceLogicClassName = $this->className;
 
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body
         $result = $logic->loginAs();
@@ -230,15 +198,10 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     public function testValidatePermit(): void
     {
         // setup
-        $securityProviderMock = $this->getSecurityProviderMock();
-        $securityProviderMock->method('validatePermit')->with(
-            $this->equalTo('value'),
-            $this->equalTo(ServiceLogicUnitTests::TEST_USER_LOGIN));
-
         $serviceLogicClassName = $this->className;
 
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body and assertions
         $logic->validatePermit(ServiceLogicUnitTests::TEST_USER_LOGIN);
@@ -251,15 +214,10 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
     public function testHasPermit(): void
     {
         // setup
-        $securityProviderMock = $this->getSecurityProviderMock();
-        $securityProviderMock->method('hasPermit')->with(
-            $this->equalTo('value'),
-            $this->equalTo(ServiceLogicUnitTests::TEST_USER_LOGIN));
-
         $serviceLogicClassName = $this->className;
 
         /** @var ServiceLogic $logic */
-        $logic = new $serviceLogicClassName(new MockParamsFetcher(), $securityProviderMock, new ServiceModel());
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body and assertions
         $logic->hasPermit(ServiceLogicUnitTests::TEST_USER_LOGIN);

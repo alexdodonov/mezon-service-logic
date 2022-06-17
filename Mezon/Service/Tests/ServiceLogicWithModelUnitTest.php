@@ -15,13 +15,13 @@ class ServiceLogicWithModelUnitTest extends TestCase
 {
 
     /**
-     * Testing method getModel
+     * Testing constructor
      */
-    public function testGetModel(): void
+    public function testConstructor(): void
     {
         // setup
         $model1 = new ServiceModel();
-        $logic = new ServiceLogicWithModel(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
+        $logic = new TestingServiceLogicWithModel(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body
         $model2 = $logic->getModel();
