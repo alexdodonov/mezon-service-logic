@@ -45,6 +45,7 @@ class ServiceLogic extends ServiceLogicWithModel
         AuthorizationProviderInterface $authorizationProvider,
         ServiceModel $model)
     {
+        // TODO remove $model parameter because we have ServiceLogicWithModel class
         parent::__construct($paramsFetcher, $authorizationProvider, $model);
 
         $this->authorizationProvider = $authorizationProvider;
