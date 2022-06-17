@@ -44,9 +44,7 @@ class ServiceBaseLogic implements ServiceBaseLogicInterface
      * @param ProviderInterface $securityProvider
      *            Security provider
      */
-    public function __construct(
-        RequestParamsInterface $paramsFetcher,
-        ProviderInterface $securityProvider)
+    public function __construct(RequestParamsInterface $paramsFetcher, ProviderInterface $securityProvider)
     {
         $this->paramsFetcher = $paramsFetcher;
 
@@ -85,5 +83,15 @@ class ServiceBaseLogic implements ServiceBaseLogicInterface
     public function getSecurityProvider(): ProviderInterface
     {
         return $this->securityProvider;
+    }
+
+    /**
+     * Method sets security provider
+     *
+     * @param ProviderInterface $securityProvider
+     */
+    public function setSecurityProvider(ProviderInterface $securityProvider): void
+    {
+        $this->securityProvider = $securityProvider;
     }
 }

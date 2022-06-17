@@ -49,6 +49,13 @@ trait StandartSecurityMethods
     public abstract function getSecurityProvider(): ProviderInterface;
 
     /**
+     * Method sets security provider
+     *
+     * @param ProviderInterface $securityProvider
+     */
+    public abstract function setSecurityProvider(ProviderInterface $securityProvider): void;
+
+    /**
      * Method returns security provider
      *
      * @return AuthorizationProviderInterface

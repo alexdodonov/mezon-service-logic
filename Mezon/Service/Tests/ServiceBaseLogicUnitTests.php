@@ -55,6 +55,7 @@ class ServiceBaseLogicUnitTests extends TestCase
     {
         $serviceLogicClassName = $this->className;
 
+        /** @var ServiceBaseLogic $logic */
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         $this->assertInstanceOf(MockParamsFetcher::class, $logic->getParamsFetcher());

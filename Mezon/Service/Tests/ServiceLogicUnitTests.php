@@ -48,6 +48,7 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
         $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
 
         // test body
+        /** @var array{session_id: string} $result */
         $result = $logic->connect();
 
         // assertions
