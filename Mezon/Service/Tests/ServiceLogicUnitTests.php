@@ -224,4 +224,21 @@ class ServiceLogicUnitTests extends ServiceBaseLogicUnitTests
         $logic->hasPermit(ServiceLogicUnitTests::TEST_USER_LOGIN);
         $this->assertTrue(true);
     }
+
+    /**
+     * Testing method setSecurityProvider
+     */
+    public function testSetSecurityProvider(): void
+    {
+        // setup
+        $serviceLogicClassName = $this->className;
+        /** @var ServiceLogic $logic */
+        $logic = new $serviceLogicClassName(new MockParamsFetcher(), new MockProvider(), new ServiceModel());
+
+        // test body
+        $logic->setSecurityProvider($securityProvider = new MockProvider());
+
+        // assertions
+        $this->assertSame($securityProvider, $logic->getSecurityProvider());
+    }
 }

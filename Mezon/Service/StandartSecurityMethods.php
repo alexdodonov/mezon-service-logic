@@ -69,8 +69,10 @@ trait StandartSecurityMethods
      */
     public function connect(): array
     {
+        /** @var string|false $login */
         $login = $this->getParam($this->getAuthorizationProvider()
             ->getLoginFieldName(), false);
+        /** @var string|false $password */
         $password = $this->getParam('password', false);
 
         // TODO throw exception with the call stack, for debug purposes
@@ -92,9 +94,12 @@ trait StandartSecurityMethods
      */
     public function setToken(): array
     {
+        /** @var string $token */
+        $token = $this->getParam('token');
+
         return [
             $this->getAuthorizationProvider()->getSessionIdFieldName() => $this->getAuthorizationProvider()->createSession(
-                $this->getParam('token'))
+                $token)
         ];
     }
 
